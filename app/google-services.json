@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "884005998722",
+    "project_id": "puzzlequestacademy",
+    "storage_bucket": "puzzlequestacademy.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884005998722:android:58cb1c6055d78ac3f0e49b",
+        "android_client_info": {
+          "package_name": "com.fromzero.puzzlequestacademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884005998722-gvf93pl6v7p3bv5lm44pphg4t2tkk3nm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fromzero.puzzlequestacademy",
+            "certificate_hash": "a61e7da82379427ee99aaa4f2a6f72872a263680"
+          }
+        },
+        {
+          "client_id": "884005998722-b1kg8ri4en1db340ka3dsi81o78dmf3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmR5CD_cpPgwAQBq5Sk6if_Fi_2KV73I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884005998722-b1kg8ri4en1db340ka3dsi81o78dmf3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
