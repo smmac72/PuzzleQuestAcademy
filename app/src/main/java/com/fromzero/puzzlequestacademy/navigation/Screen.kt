@@ -1,5 +1,4 @@
 // navigation/Screen.kt
-
 package com.fromzero.puzzlequestacademy.navigation
 
 sealed class Screen(val route: String) {
@@ -19,5 +18,4 @@ sealed class Screen(val route: String) {
     object EnvironmentalScenario : Screen("environmental_scenario")
     object FlagIdentification : Screen("flag_identification")
     object CapitalMatching : Screen("capital_matching")
-    // Add other puzzles similarly
 }

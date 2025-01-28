@@ -14,7 +14,7 @@
 
         <!-- MainActivity Declaration -->
         <activity
-            android:name=".main.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"> <!-- Must be true if it has an intent filter -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

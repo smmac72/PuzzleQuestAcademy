@@ -3,12 +3,10 @@
 package com.fromzero.puzzlequestacademy.di
 
 import android.content.Context
-import androidx.room.Room
 import com.fromzero.puzzlequestacademy.data.generators.*
-import com.fromzero.puzzlequestacademy.data.local.PuzzleDao
-import com.fromzero.puzzlequestacademy.data.local.PuzzleDatabase
 import com.fromzero.puzzlequestacademy.data.repository.FirebaseRepository
 import com.fromzero.puzzlequestacademy.data.repository.PuzzleRepository
+import com.fromzero.puzzlequestacademy.data.local.PuzzleDao
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,10 +21,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Provides
     @Singleton
     @Named("web_client_id")
-    fun provideWebClientId(): String = "884005998722-gvf93pl6v7p3bv5lm44pphg4t2tkk3nm.apps.googleusercontent.com" // Replace with your actual Web Client ID
+    fun provideWebClientId(): String =
+        "884005998722-gvf93pl6v7p3bv5lm44pphg4t2tkk3nm.apps.googleusercontent.com"
 
     @Provides
     @Singleton
@@ -40,20 +40,9 @@ object AppModule {
             .build()
         return GoogleSignIn.getClient(context, gso)
     }
-    // Provide Room Database
-    @Provides
-    @Singleton
-    fun providePuzzleDatabase(appContext: Context): PuzzleDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            PuzzleDatabase::class.java,
-            "puzzle_database"
-        ).build()
-    }
 
-    // Provide PuzzleDao
-    @Provides
-    fun providePuzzleDao(database: PuzzleDatabase): PuzzleDao = database.puzzleDao()
+    // Remove the puzzle database and puzzleDao providers here to avoid duplication.
+    // They are already provided in DatabaseModule.kt
 
     // Provide FirebaseRepository
     @Provides
@@ -65,69 +54,28 @@ object AppModule {
         return FirebaseRepository(auth, firestore)
     }
 
-    // Provide Generators
-    @Provides
-    @Singleton
-    fun provideAlgebraProblemGenerator(): AlgebraProblemGenerator = AlgebraProblemGenerator()
-
-    @Provides
-    @Singleton
-    fun provideAnagramGenerator(): AnagramGenerator = AnagramGenerator(loadDictionary())
-
-    @Provides
-    @Singleton
-    fun provideBiologyMatchingGenerator(): BiologyMatchingGenerator = BiologyMatchingGenerator()
-
-    @Provides
-    @Singleton
-    fun provideCapitalCityMatchingGenerator(): CapitalCityMatchingGenerator = CapitalCityMatchingGenerator()
-
-    @Provides
-    @Singleton
-    fun provideChemistryEquationBalancer(): ChemistryEquationBalancer = ChemistryEquationBalancer()
-
-    @Provides
-    @Singleton
-    fun provideCrosswordGenerator(): CrosswordGenerator = CrosswordGenerator()
-
-    @Provides
-    @Singleton
-    fun provideEnvironmentalScenarioGenerator(): EnvironmentalScenarioGenerator = EnvironmentalScenarioGenerator()
-
-    @Provides
-    @Singleton
-    fun provideFlagIdentificationGenerator(): FlagIdentificationGenerator = FlagIdentificationGenerator()
-
-    @Provides
-    @Singleton
-    fun provideGeometryProblemGenerator(): GeometryProblemGenerator = GeometryProblemGenerator()
-
-    @Provides
-    @Singleton
-    fun provideLogicGridGenerator(): LogicGridGenerator = LogicGridGenerator()
-
-    @Provides
-    @Singleton
-    fun providePatternRecognitionGenerator(): PatternRecognitionGenerator = PatternRecognitionGenerator()
-
-    @Provides
-    @Singleton
-    fun providePhysicsKinematicsProblemGenerator(): PhysicsKinematicsProblemGenerator = PhysicsKinematicsProblemGenerator()
-
-    @Provides
-    @Singleton
-    fun provideSudokuGenerator(): SudokuGenerator = SudokuGenerator()
-
-    @Provides
-    @Singleton
-    fun provideWordSearchGenerator(): WordSearchGenerator = WordSearchGenerator()
+    // Provide puzzle generators
+    @Provides @Singleton fun provideAlgebraProblemGenerator(): AlgebraProblemGenerator = AlgebraProblemGenerator()
+    @Provides @Singleton fun provideAnagramGenerator(): AnagramGenerator = AnagramGenerator(loadDictionary())
+    @Provides @Singleton fun provideBiologyMatchingGenerator(): BiologyMatchingGenerator = BiologyMatchingGenerator()
+    @Provides @Singleton fun provideCapitalCityMatchingGenerator(): CapitalCityMatchingGenerator = CapitalCityMatchingGenerator()
+    @Provides @Singleton fun provideChemistryEquationBalancer(): ChemistryEquationBalancer = ChemistryEquationBalancer()
+    @Provides @Singleton fun provideCrosswordGenerator(): CrosswordGenerator = CrosswordGenerator()
+    @Provides @Singleton fun provideEnvironmentalScenarioGenerator(): EnvironmentalScenarioGenerator = EnvironmentalScenarioGenerator()
+    @Provides @Singleton fun provideFlagIdentificationGenerator(): FlagIdentificationGenerator = FlagIdentificationGenerator()
+    @Provides @Singleton fun provideGeometryProblemGenerator(): GeometryProblemGenerator = GeometryProblemGenerator()
+    @Provides @Singleton fun provideLogicGridGenerator(): LogicGridGenerator = LogicGridGenerator()
+    @Provides @Singleton fun providePatternRecognitionGenerator(): PatternRecognitionGenerator = PatternRecognitionGenerator()
+    @Provides @Singleton fun providePhysicsKinematicsProblemGenerator(): PhysicsKinematicsProblemGenerator = PhysicsKinematicsProblemGenerator()
+    @Provides @Singleton fun provideSudokuGenerator(): SudokuGenerator = SudokuGenerator()
+    @Provides @Singleton fun provideWordSearchGenerator(): WordSearchGenerator = WordSearchGenerator()
 
     // Provide PuzzleRepository
     @Provides
     @Singleton
     fun providePuzzleRepository(
         firebaseRepository: FirebaseRepository,
-        puzzleDao: PuzzleDao,
+        puzzleDao: PuzzleDao,  // from DatabaseModule
         algebraGenerator: AlgebraProblemGenerator,
         anagramGenerator: AnagramGenerator,
         biologyMatchingGenerator: BiologyMatchingGenerator,
@@ -164,12 +112,11 @@ object AppModule {
     }
 
     /**
-     * Loads the dictionary from assets.
-     * @return A set of valid words.
+     * Loads the dictionary from assets or a predefined set.
+     * Modify as needed to load from a real file if desired.
      */
     private fun loadDictionary(): Set<String> {
-        // Placeholder: Implement actual dictionary loading logic
-        // For example, read from a file in assets
+        // Placeholder example
         return setOf("Kotlin", "Android", "Firebase", "Compose", "Hilt", "Room")
     }
 }

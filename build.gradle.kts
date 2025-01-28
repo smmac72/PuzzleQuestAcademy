@@ -5,10 +5,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // Android Gradle Plugin
+        // Use the AGP version from gradle.properties if you wish (uncomment below).
+        // classpath("com.android.tools.build:gradle:${property("android_gradle_plugin_version")}")
+
+        // Or pin it explicitly to match your pluginManagement block:
         classpath("com.android.tools.build:gradle:8.8.0")
 
-        // Kotlin Gradle Plugin
+        // Kotlin Gradle Plugin (use the version from gradle.properties, i.e. 2.0.21)
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${property("kotlinVersion")}")
 
         // Hilt Gradle Plugin

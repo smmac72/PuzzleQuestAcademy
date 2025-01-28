@@ -1,5 +1,4 @@
-// PuzzleDatabase.kt
-
+// data/local/PuzzleDatabase.kt
 package com.fromzero.puzzlequestacademy.data.local
 
 import androidx.room.Database
@@ -24,7 +23,7 @@ abstract class PuzzleDatabase : RoomDatabase() {
                     PuzzleDatabase::class.java,
                     "puzzle_database"
                 )
-                    .fallbackToDestructiveMigration() // Handle migrations properly in production
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

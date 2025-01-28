@@ -1,6 +1,6 @@
 // UserProfileScreen.kt
 
-package com.fromzero.puzzlequestacademy.ui
+package com.fromzero.puzzlequestacademy.ui.user
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,11 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.fromzero.puzzlequestacademy.data.model.UserProfile
-import com.fromzero.puzzlequestacademy.ui.user.UserViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun UserProfileScreen(userViewModel: UserViewModel = hiltViewModel()) {
+fun UserScreen(userViewModel: UserViewModel = hiltViewModel()) {
     var userId by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }

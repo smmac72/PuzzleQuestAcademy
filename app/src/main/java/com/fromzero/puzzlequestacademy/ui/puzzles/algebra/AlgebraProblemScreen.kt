@@ -5,12 +5,15 @@ package com.fromzero.puzzlequestacademy.ui.puzzles.algebra
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
@@ -19,7 +22,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AlgebraProblemScreen(
     navController: NavController,
-    algebraViewModel: AlgebraViewModel = viewModel()
+    algebraViewModel: AlgebraViewModel = hiltViewModel()
 ) {
     val problem by algebraViewModel.problem.observeAsState()
     val feedback by algebraViewModel.feedback.observeAsState()
@@ -34,7 +37,7 @@ fun AlgebraProblemScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }

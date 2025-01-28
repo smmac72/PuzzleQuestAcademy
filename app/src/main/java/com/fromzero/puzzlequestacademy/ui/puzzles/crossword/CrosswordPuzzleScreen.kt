@@ -8,6 +8,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -15,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fromzero.puzzlequestacademy.ui.puzzles.crossword.CrosswordViewModel
@@ -24,7 +27,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CrosswordPuzzleScreen(
     navController: NavController,
-    crosswordViewModel: CrosswordViewModel = viewModel()
+    crosswordViewModel: CrosswordViewModel = hiltViewModel()
 ) {
     val puzzle by crosswordViewModel.puzzle.observeAsState()
     val feedback by crosswordViewModel.feedback.observeAsState()
@@ -37,7 +40,7 @@ fun CrosswordPuzzleScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }

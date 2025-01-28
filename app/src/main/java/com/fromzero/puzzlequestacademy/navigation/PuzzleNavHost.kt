@@ -1,9 +1,7 @@
 // navigation/PuzzleNavHost.kt
-
 package com.fromzero.puzzlequestacademy.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,6 +9,7 @@ import com.fromzero.puzzlequestacademy.ui.auth.AuthScreen
 import com.fromzero.puzzlequestacademy.ui.home.HomeScreen
 import com.fromzero.puzzlequestacademy.ui.puzzles.algebra.AlgebraProblemScreen
 import com.fromzero.puzzlequestacademy.ui.puzzles.anagram.AnagramScreen
+import com.fromzero.puzzlequestacademy.ui.puzzles.biology.BiologyMatchingScreen
 import com.fromzero.puzzlequestacademy.ui.puzzles.capitalmatching.CapitalMatchingScreen
 import com.fromzero.puzzlequestacademy.ui.puzzles.chemistry.ChemistryEquationScreen
 import com.fromzero.puzzlequestacademy.ui.puzzles.crossword.CrosswordPuzzleScreen
@@ -25,7 +24,7 @@ import com.fromzero.puzzlequestacademy.ui.puzzles.wordsearch.WordSearchScreen
 
 @Composable
 fun PuzzleNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Auth.route) {
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.Auth.route) {
             AuthScreen(navController = navController)
         }
@@ -57,7 +56,7 @@ fun PuzzleNavHost(navController: NavHostController) {
             LogicGridScreen(navController = navController)
         }
         composable(Screen.BiologyMatching.route) {
-            // Implement BiologyMatchingScreen.kt similarly
+            BiologyMatchingScreen(navController = navController)
         }
         composable(Screen.ChemistryEquation.route) {
             ChemistryEquationScreen(navController = navController)
@@ -71,6 +70,5 @@ fun PuzzleNavHost(navController: NavHostController) {
         composable(Screen.CapitalMatching.route) {
             CapitalMatchingScreen(navController = navController)
         }
-        // Add other puzzles similarly
     }
 }

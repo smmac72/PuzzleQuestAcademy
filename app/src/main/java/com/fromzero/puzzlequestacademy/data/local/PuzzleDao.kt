@@ -1,5 +1,4 @@
 // data/local/PuzzleDao.kt
-
 package com.fromzero.puzzlequestacademy.data.local
 
 import androidx.room.Dao
@@ -10,7 +9,6 @@ import com.fromzero.puzzlequestacademy.data.model.UserProfile
 
 @Dao
 interface PuzzleDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserProfile(userProfile: UserProfile)
 

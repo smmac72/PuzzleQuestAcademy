@@ -1,12 +1,16 @@
 // MainActivity.kt
-
-package com.fromzero.puzzlequestacademy.main
+package com.fromzero.puzzlequestacademy
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
+import com.fromzero.puzzlequestacademy.main.PuzzleQuestAcademyApp
+import com.fromzero.puzzlequestacademy.navigation.PuzzleNavHost
+import com.fromzero.puzzlequestacademy.ui.auth.AuthScreen
+import com.fromzero.puzzlequestacademy.ui.home.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
-import com.fromzero.puzzlequestacademy.ui.UserProfileScreen
+import com.fromzero.puzzlequestacademy.ui.user.UserScreen
 import com.fromzero.puzzlequestacademy.ui.theme.PuzzleQuestAcademyTheme
 
 @AndroidEntryPoint
@@ -15,7 +19,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PuzzleQuestAcademyTheme {
-                UserProfileScreen()
+                val navController = rememberNavController()
+                PuzzleNavHost(navController = navController)
             }
         }
     }

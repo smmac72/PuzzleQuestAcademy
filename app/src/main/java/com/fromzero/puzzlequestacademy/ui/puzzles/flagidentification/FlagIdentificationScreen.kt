@@ -6,6 +6,8 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fromzero.puzzlequestacademy.R
@@ -22,7 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FlagIdentificationScreen(
     navController: NavController,
-    flagViewModel: FlagIdentificationViewModel = viewModel()
+    flagViewModel: FlagIdentificationViewModel = hiltViewModel()
 ) {
     val puzzle by flagViewModel.puzzle.observeAsState()
     val feedback by flagViewModel.feedback.observeAsState()
@@ -37,7 +40,7 @@ fun FlagIdentificationScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }

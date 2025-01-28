@@ -1,5 +1,4 @@
-// repository/PuzzleRepository.kt
-
+// PuzzleRepository.kt
 package com.fromzero.puzzlequestacademy.data.repository
 
 import com.fromzero.puzzlequestacademy.data.generators.*
@@ -8,7 +7,9 @@ import com.fromzero.puzzlequestacademy.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PuzzleRepository @Inject constructor(
     val firebaseRepository: FirebaseRepository,
     private val puzzleDao: PuzzleDao,
@@ -40,7 +41,7 @@ class PuzzleRepository @Inject constructor(
         firebaseRepository.updateUserProfile(userProfile)
     }
 
-    // Hints Management
+    // Hints
     suspend fun getUserHints(): Int = withContext(Dispatchers.IO) {
         val userId = firebaseRepository.auth.currentUser?.uid ?: return@withContext 0
         firebaseRepository.getUserHints(userId)
@@ -51,79 +52,50 @@ class PuzzleRepository @Inject constructor(
         firebaseRepository.updateUserHints(userId, newHints)
     }
 
-    // Puzzle Generation Methods
-
-    // Anagram Puzzle
+    // Puzzle Generation
     suspend fun generateAnagramPuzzle(): AnagramPuzzle? = withContext(Dispatchers.IO) {
         anagramGenerator.generateAnagram()
     }
-
-    // Algebra Problem
     suspend fun generateAlgebraProblem(): AlgebraProblem? = withContext(Dispatchers.IO) {
         algebraGenerator.generateProblem()
     }
-
-    // Biology Matching Puzzle
     suspend fun generateBiologyMatchingPuzzle(): BiologyMatchingPuzzle? = withContext(Dispatchers.IO) {
         biologyMatchingGenerator.generatePuzzle()
     }
-
-    // Capital City Matching Puzzle
     suspend fun generateCapitalMatchingPuzzle(): CapitalMatchingPuzzle? = withContext(Dispatchers.IO) {
         capitalCityMatchingGenerator.generatePuzzle()
     }
-
-    // Chemistry Equation Balancer
     suspend fun generateChemistryEquation(): ChemistryEquation? = withContext(Dispatchers.IO) {
-        chemistryEquationBalancer.balanceEquation("H2 + O2 -> H2O") // Example equation
+        chemistryEquationBalancer.balanceEquation("H2 + O2 -> H2O")
     }
-
-    // Crossword Puzzle
     suspend fun generateCrosswordPuzzle(): CrosswordPuzzle? = withContext(Dispatchers.IO) {
         crosswordGenerator.generatePuzzle()
     }
-
-    // Environmental Scenario
     suspend fun generateEnvironmentalScenario(): EnvironmentalScenario? = withContext(Dispatchers.IO) {
         environmentalScenarioGenerator.generateScenario()
     }
-
-    // Flag Identification Puzzle
     suspend fun generateFlagIdentificationPuzzle(): FlagIdentificationPuzzle? = withContext(Dispatchers.IO) {
         flagIdentificationGenerator.generatePuzzle()
     }
-
-    // Geometry Problem
     suspend fun generateGeometryProblem(): GeometryProblem? = withContext(Dispatchers.IO) {
         geometryProblemGenerator.generateProblem()
     }
-
-    // Logic Grid Puzzle
     suspend fun generateLogicGridPuzzle(): LogicGridPuzzle? = withContext(Dispatchers.IO) {
         logicGridGenerator.generatePuzzle()
     }
-
-    // Pattern Recognition Problem
     suspend fun generatePatternProblem(): PatternProblem? = withContext(Dispatchers.IO) {
         patternRecognitionGenerator.generateProblem()
     }
-
-    // Physics Kinematics Problem
     suspend fun generatePhysicsProblem(): PhysicsProblem? = withContext(Dispatchers.IO) {
         physicsKinematicsProblemGenerator.generateProblem()
     }
-
-    // Sudoku Puzzle
     suspend fun generateSudokuPuzzle(): SudokuPuzzle? = withContext(Dispatchers.IO) {
         sudokuGenerator.generatePuzzle()
     }
-
-    // Word Search Puzzle
     suspend fun generateWordSearchPuzzle(): WordSearchPuzzle? = withContext(Dispatchers.IO) {
         wordSearchGenerator.generatePuzzle()
     }
 
-    // Update Puzzle Progress
     suspend fun updatePuzzleProgress(puzzleType: String, isCompleted: Boolean) = withContext(Dispatchers.IO) {
         firebaseRepository.updatePuzzleProgress(puzzleType, isCompleted)
     }

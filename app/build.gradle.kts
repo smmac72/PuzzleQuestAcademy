@@ -1,23 +1,18 @@
-import com.android.build.api.dsl.Packaging
-
-// app/build.gradle.kts (Module Level)
+// app/build.gradle.kts
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
+    // This plugin adds Compose-specific checks; pinned to the same Kotlin major
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
 }
 
 android {
+    namespace = "com.fromzero.puzzlequestacademy"
     compileSdk = 35
-    namespace = "com.fromzero.puzzlequestacademy" // Added namespace
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
     defaultConfig {
         applicationId = "com.fromzero.puzzlequestacademy"
         minSdk = 23
@@ -27,6 +22,7 @@ android {
 
         multiDexEnabled = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -34,70 +30,71 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
     }
 
+    // Use composeVersion from gradle.properties
     composeOptions {
         kotlinCompilerExtensionVersion = property("composeVersion") as String
     }
 }
 
 dependencies {
-    // Retrieve version variables from gradle.properties
+    // Read versions from gradle.properties
     val composeVersion: String by project
     val hiltVersion: String by project
     val firebaseBomVersion: String by project
     val kotlinVersion: String by project
 
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
-    implementation("com.google.android.gms:play-services-auth:21.3.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.7.6")
+    // Version catalog examples (libs.* comes from libs.versions.toml)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.junit) // for local tests if needed
+    //implementation(libs.play.services.auth)
 
-    // Kotlin Standard Library
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+
+    // Compose BOM approach or direct version usage:
+    // Using direct version from composeVersion property:
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+
+    // Compose Material 3 if needed from version-catalog:
+    implementation(libs.androidx.material3.android)
+
+    // Kotlin Standard Library (matching your kotlinVersion = 2.0.21)
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
     // Hilt for Dependency Injection
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    implementation(libs.androidx.material3.android)
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-    // Room for Database
+    // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    // Firebase Dependencies
+    // Firebase BOM & typical services
     implementation(platform("com.google.firebase:firebase-bom:$firebaseBomVersion"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
 
-    // Jetpack Compose
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-
-    // Navigation Compose
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-
-    // Lifecycle Components
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-
-    // In-App Purchases (Optional)
+    // In-App Purchases (optional)
     implementation("com.android.billingclient:billing-ktx:7.1.1")
 
-    // Multidex Support
+    // Multidex
     implementation("androidx.multidex:multidex:2.0.1")
 
-    // Testing Libraries
-    testImplementation(libs.junit)
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    // Testing
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 }
-// Removed the following line to avoid conflicts
-// apply(plugin = "com.google.gms.google-services")

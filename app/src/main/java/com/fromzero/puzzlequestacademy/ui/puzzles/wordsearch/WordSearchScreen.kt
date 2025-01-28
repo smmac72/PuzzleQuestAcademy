@@ -7,6 +7,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -14,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fromzero.puzzlequestacademy.data.model.WordSearchPuzzle
@@ -23,7 +26,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun WordSearchScreen(
     navController: NavController,
-    wordSearchViewModel: WordSearchViewModel = viewModel()
+    wordSearchViewModel: WordSearchViewModel = hiltViewModel()
 ) {
     val puzzle by wordSearchViewModel.puzzle.observeAsState()
     val feedback by wordSearchViewModel.feedback.observeAsState()
@@ -36,7 +39,7 @@ fun WordSearchScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
